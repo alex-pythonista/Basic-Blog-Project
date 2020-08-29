@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title_block %} {{blog.blog_title}} {% endblock %}
+{% block body_block %}
+
+<div class="blog-container">
+    <div class="container">
+        <div class="row pt-5">
+            <div class="col">
+                <h2 class="text-primary">{{blog.blog_title}}</h2>
+                <p><strong>@{{blog.author}},</strong><small class="text-muted"> {{blog.publish_date}}</small><br>
+
+                <h6>{{blog.liked_blog.count}} Likes | {{blog.blog_comment.count}} Comments</h6>
+                </p>
+                <img src="/media/{{blog.blog_image}}" height="300px" class="rounded mx-auto d-block" width="700px" alt="Blog Image">
+                <p>{{blog.blog_content|linebreaks}}</p>
+            </div>
+        </div>
+        <hr>
+        {% if not liked %}
+        <a href="{% url 'blog_app:liked_post' pk=blog.pk %}">
+            <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i>
+        </a>
+        {% else %}
+        <a href="{% url 'blog_app:unliked_post' pk=blog.pk %}">
+            <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true"></i>
+        </a><br><small>You like this blog</small>
+        {% endif %}
+        <div class="row pt-3">
+            <div class="col-sm-6">
+                <strong>Comments: </strong>
+                {% for comment in blog.blog_comment.all %}
+                <p><strong class="text-info">@{{comment.user}}</strong> {{comment}}<br>
+                    <small class="text-muted">{{comment.comment_date}}</small></p>
+                {% endfor %}
+            </div>
+            <div class="col-sm-6">
+                <form method="POST">
+                    <div class="form-group">
+                        {{comment_form|crispy}}
+                        {% csrf_token%}
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Comment</button>
+                </form><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

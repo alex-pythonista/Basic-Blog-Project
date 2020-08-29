@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title_block %} Profile picture {% endblock %}
+{% block body_block %}
+
+<div class="container pt-4">
+    <div class="row">
+        <div class="col-md-4">
+            {% if change %}
+            <h4 class="text-primary">Change Profile Picture</h4>
+            {% else %}
+            <h4 class="text-primary">Add Profile Picture</h4>
+            {% endif %}
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <img src="/media/{{user.user_profile.profile_picture}}" alt="user profile picture" width="100%" height="auto">
+                    {{form|crispy}}
+                    {% csrf_token%}
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Save</button>
+            </form><br>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+            <img src="{% static 'images/The_Developers.png' %}" width="100%" height="auto" alt="The Developers Banner"
+                style="aspect-ratio: auto;">
+        </div>
+    </div>
+</div>
+
+{% endblock %}

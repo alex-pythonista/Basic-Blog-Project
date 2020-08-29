@@ -1,0 +1,9 @@
+h3{
+    color: blue;
+}
+.navbar-container{
+    top: 0%;
+    background-color: #283E4A;
+    position: sticky;
+    z-index: 2;
+}

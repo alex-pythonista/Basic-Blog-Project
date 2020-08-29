@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title_block %} Profile {% endblock %}
+{% block body_block %}
+
+
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-md-4">
+      <h4 class="text-primary">Your Profile</h4>
+      <div class="card mb-3" style="width: 18rem;">
+        {% if user.user_profile %}
+        <img src="/media/{{user.user_profile.profile_picture}}" width="100%" height="auto" class="card-img-top"
+          alt="user image"> <br>
+        <a href="{% url 'login_app:change_picture' %}" class="btn btn-info btn-sm">Change profile picture</a>
+        {% else %}
+        <img src="/media/user_profile_pictures/unisex_avatar.jpg" width="100%" height="auto" class="card-img-top"
+          alt="user image">
+        <a href="{% url 'login_app:add_picture' %}" class="btn btn-info btn-sm">Add profile picture</a>
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">@{{user.username}} <a href="{% url 'login_app:change_profile' %}"
+              class="card-link btn btn-primary btn-sm">Edit Profile</a></h5>
+          {% if user.user_profile%}
+          <p class="card-text">{{user.user_profile.about}}</p>
+          <a href="{% url 'login_app:edit_bio' %}" class="btn btn-info btn-sm">Edit Bio</a>
+          {% endif %}
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Name: </strong>{{user.first_name}} {{user.last_name}}</li>
+          <li class="list-group-item"><strong>Email: </strong>{{user.email}}</li>
+        </ul>
+        <div class="card-body">
+          <a href="#" class="card-link">Facebook</a>
+          <a href="#" class="card-link">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+        <div class="col-md-6">
+            <img src="{% static 'images/The_Developers.png' %}" width="100%" height="auto" alt="The Developers Banner" style="aspect-ratio: auto;">
+        </div>
+  </div>
+</div>
+
+{% endblock %}

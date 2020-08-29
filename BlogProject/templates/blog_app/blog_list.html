@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block title_block %} Home {% endblock %}
+{% block body_block %}
+
+<h3 class="text-center pt-4">Available Blogs</h3>
+
+<div class="blog-container">
+    <div class="container">
+        <div class="row mb-2 pt-5">
+            {% for blog in blogs %}
+            <div class="col-md-6">
+                <div
+                    class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-primary">@{{blog.author}}</strong>
+                        <h6 class="mb-0 text-primary">{{blog.blog_title}}</h6>
+                        <div class="text-muted">{{blog.publish_date}}</div>
+                        <p class="card-text ">{{blog.blog_content|range_filter|linebreaks}}</p>
+                        <a href="{% url 'blog_app:blog_details' slug=blog.slug %}" class="stretched-link">Continue
+                            reading</a><br>
+                            <small>{{blog.liked_blog.count}} Likes | {{blog.blog_comment.count }} Comments </small>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <img src="/media/{{blog.blog_image}}" alt="Blog Image" width="250" height="300">
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

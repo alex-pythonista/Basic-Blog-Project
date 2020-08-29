@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title_block %} Write your blog {% endblock %}
+{% block body_block %}
+
+<div class="container pt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="text-primary">Write your BLOG here</h4>
+
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    {{form|crispy}}
+                    {% csrf_token%}
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Publish</button>
+            </form><br>
+
+        </div>
+        <div class="col-md-6">
+            <img src="{% static 'images/The_Developers.png' %}" width="100%" height="auto" alt="The Developers Banner"
+                style="aspect-ratio: auto;">
+        </div>
+    </div>
+</div>
+
+{% endblock %}

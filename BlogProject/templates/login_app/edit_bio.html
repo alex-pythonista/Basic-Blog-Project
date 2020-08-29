@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title_block %} Edit bio {% endblock %}
+{% block body_block %}
+
+<div class="container pt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <h4 class="text-primary">Edit Bio</h4>
+            <form method="POST">
+                <div class="form-group">
+                    {{form|crispy}}
+                    {% csrf_token %}
+                    <small><span class="text-info">Describe yoouself. (Max character: 101)</span></small>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Save</button>
+            </form><br>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+            <img src="{% static 'images/The_Developers.png' %}" width="100%" height="auto" alt="The Developers Banner" style="aspect-ratio: auto;">
+        </div>
+    </div>
+</div>
+
+{% endblock %}
